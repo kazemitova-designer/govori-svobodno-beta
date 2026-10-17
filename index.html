@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#11121a">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="Говори свободно">
+  <meta name="description" content="Тренировка речи со случайной темой и записью вертикального видео на телефон.">
+  <meta name="robots" content="noindex,nofollow">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; media-src 'self' blob:; connect-src 'none'; object-src 'none'; base-uri 'self'; form-action 'none'">
+  <title>Говори свободно — тест записи</title>
+  <link rel="manifest" href="./manifest.webmanifest">
+  <link rel="icon" href="./icon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="./styles.css">
+  <script src="./core.js" defer></script>
+  <script src="./words.js" defer></script>
+  <script src="./recorder.js" defer></script>
+  <script src="./app.js" defer></script>
+</head>
+<body>
+<main>
+  <header>
+    <p class="eyebrow">Тренажёр речи · бета 0.2.0</p>
+    <h1>Говори свободно</h1>
+    <p class="intro">Одна тема. Несколько минут практики. Готовое видео — у тебя на телефоне.</p>
+  </header>
+  <section class="panel setup" aria-labelledby="exercise-title">
+    <div class="row"><h2 id="exercise-title">Тема упражнения</h2><button id="next" class="secondary compact" type="button">Другое слово</button></div>
+    <p class="topic" id="topic">Газета</p>
+    <div class="field"><label for="duration">Сколько говорить</label><select id="duration"><option value="10">10 секунд · проба камеры</option><option value="30">30 секунд</option><option value="60" selected>1 минута</option><option value="90">1,5 минуты</option><option value="120">2 минуты</option></select></div>
+    <details class="settings" id="settings">
+      <summary>Настройки кадра</summary>
+      <div class="field"><label for="framing">Кадрирование</label><select id="framing"><option value="contain">Весь кадр камеры</option><option value="cover">Заполнить 9:16</option></select></div>
+      <p class="small">«Весь кадр» сохраняет края изображения, но может оставлять поля. «Заполнить» убирает поля, обрезая края. Превью и файл выглядят одинаково.</p>
+      <div class="field"><label for="quality">Размер видео</label><select id="quality"><option value="720" selected>720p · первый тест</option><option value="1080">1080p · если камера поддерживает</option></select></div>
+      <label class="checkbox"><input id="mirror" type="checkbox" checked> Зеркальный кадр, как в превью</label>
+    </details>
+  </section>
+  <section class="panel camera-panel" aria-labelledby="camera-title">
+    <div class="row camera-heading"><h2 id="camera-title">Твоя тренировка</h2><span id="timer" class="timer" aria-label="Оставшееся время">01:00</span></div>
+    <p id="status" class="status" role="status" aria-live="polite">Включи камеру и проверь положение в кадре.</p>
+    <div class="screen" id="screen"><canvas id="stage" width="720" height="1280" aria-label="Превью итогового вертикального видео"></canvas><div class="empty" id="empty">Здесь появится твой кадр<br><span>Тема и таймер уже будут в видео</span></div><div id="countdown" class="countdown" hidden aria-live="assertive"></div></div>
+    <video id="source" autoplay playsinline muted aria-hidden="true" tabindex="-1"></video>
+    <p class="hint" id="frameNote"></p>
+    <div class="actions"><button id="camera" class="secondary" type="button">Включить камеру</button><button id="record" type="button" disabled>Начать запись</button><button id="stop" class="stop" type="button" disabled>Остановить</button></div>
+    <p class="small">Видео и звук обрабатываются на устройстве. Эта версия не отправляет записи на сервер.</p>
+    <p id="notice" class="notice" role="alert" hidden></p>
+  </section>
+  <section class="panel results" id="results" aria-labelledby="result-title" hidden>
+    <h2 id="result-title">Твоя запись</h2><p id="resultNote" class="small"></p>
+    <video id="playback" controls playsinline preload="metadata" aria-label="Просмотр готовой записи"></video>
+    <div class="actions export-actions"><button id="share" type="button" hidden>Сохранить через меню телефона</button><a class="button secondary" id="save" download>Скачать файл</a><a class="text-link" id="openVideo" target="_blank" rel="noopener">Открыть видео отдельно</a><button id="retake" class="secondary" type="button">Переснять</button></div>
+    <p id="saveHelp" class="small"></p>
+    <p id="recovery" class="notice quiet" hidden>Последняя попытка не прошла проверку воспроизведения; предыдущий ролик оставлен выше. <a id="recoverySave" class="text-link" download>Скачать последнюю попытку отдельно</a></p>
+    <p class="notice quiet">Сохрани нужный ролик до закрытия страницы. Постоянной галереи в этой тестовой версии пока нет.</p>
+    <p id="exportStatus" role="status" aria-live="polite" class="small"></p>
+  </section>
+  <details class="help"><summary>Как проверить на телефоне</summary><p>Открой ссылку в Safari на iPhone или Chrome на Android. Для первого теста выбери 10 секунд. После записи сохрани файл, открой его на телефоне и проверь звук, тему и таймер.</p><p>На iPhone системное меню может предложить «Сохранить видео» или «Сохранить в Файлы». Набор пунктов зависит от формата и версии системы. Публиковать запись никуда не требуется.</p><p>Во время записи держи телефон вертикально и не переключай приложения. При сворачивании запись завершится досрочно; по возвращении проверь получившийся фрагмент.</p><p>Эта сборка проверяет камеру и сохранение. Другие режимы тренировок и анализ речи появятся на следующих этапах.</p></details>
+  <details class="diagnostics" id="diagnostics"><summary>Данные для проверки записи</summary><p class="small">Если что-то не работает, эти данные помогут описать ошибку. Они никуда не отправляются автоматически.</p><pre id="debugText"></pre><button id="copyDebug" class="secondary compact" type="button">Скопировать данные</button><p id="copyStatus" class="small" role="status"></p></details>
+  <footer>Бесплатная тестовая версия · 0.2.0</footer>
+  <noscript>Для камеры и записи нужно включить JavaScript в браузере.</noscript>
+</main>
+</body>
+</html>
