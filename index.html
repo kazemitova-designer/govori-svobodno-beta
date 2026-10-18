@@ -13,21 +13,19 @@
   <link rel="manifest" href="./manifest.webmanifest">
   <link rel="icon" href="./icon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="./styles.css">
-  <script src="./core.js" defer></script>
-  <script src="./words.js" defer></script>
-  <script src="./recorder.js" defer></script>
-  <script src="./app.js" defer></script>
+  <script src="./app.147f493c776b.js" defer></script>
 </head>
 <body>
 <main>
   <header>
-    <p class="eyebrow">Тренажёр речи · бета 0.2.0</p>
+    <p class="eyebrow">Тренажёр речи · бета 0.2.1</p>
     <h1>Говори свободно</h1>
     <p class="intro">Одна тема. Несколько минут практики. Готовое видео — у тебя на телефоне.</p>
   </header>
   <section class="panel setup" aria-labelledby="exercise-title">
-    <div class="row"><h2 id="exercise-title">Тема упражнения</h2><button id="next" class="secondary compact" type="button">Другое слово</button></div>
-    <p class="topic" id="topic">Газета</p>
+    <div class="row"><h2 id="exercise-title">Тема упражнения</h2><button id="next" class="secondary compact" type="button">Получить слово</button></div>
+    <p class="small" id="topicHint">Сначала настрой камеру. Слово появится, когда нажмёшь кнопку.</p>
+    <p class="topic" id="topic" aria-live="polite" hidden></p>
     <div class="field"><label for="duration">Сколько говорить</label><select id="duration"><option value="10">10 секунд · проба камеры</option><option value="30">30 секунд</option><option value="60" selected>1 минута</option><option value="90">1,5 минуты</option><option value="120">2 минуты</option></select></div>
     <details class="settings" id="settings">
       <summary>Настройки кадра</summary>
@@ -58,7 +56,7 @@
   </section>
   <details class="help"><summary>Как проверить на телефоне</summary><p>Открой ссылку в Safari на iPhone или Chrome на Android. Для первого теста выбери 10 секунд. После записи сохрани файл, открой его на телефоне и проверь звук, тему и таймер.</p><p>На iPhone системное меню может предложить «Сохранить видео» или «Сохранить в Файлы». Набор пунктов зависит от формата и версии системы. Публиковать запись никуда не требуется.</p><p>Во время записи держи телефон вертикально и не переключай приложения. При сворачивании запись завершится досрочно; по возвращении проверь получившийся фрагмент.</p><p>Эта сборка проверяет камеру и сохранение. Другие режимы тренировок и анализ речи появятся на следующих этапах.</p></details>
   <details class="diagnostics" id="diagnostics"><summary>Данные для проверки записи</summary><p class="small">Если что-то не работает, эти данные помогут описать ошибку. Они никуда не отправляются автоматически.</p><pre id="debugText"></pre><button id="copyDebug" class="secondary compact" type="button">Скопировать данные</button><p id="copyStatus" class="small" role="status"></p></details>
-  <footer>Бесплатная тестовая версия · 0.2.0</footer>
+  <footer>© 2026 Говори свободно · Бесплатная тестовая версия · 0.2.1</footer>
   <noscript>Для камеры и записи нужно включить JavaScript в браузере.</noscript>
 </main>
 </body>
